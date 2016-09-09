@@ -1,0 +1,193 @@
+<html>
+	<head>
+		<title>
+			Curriculum Vitae
+		</title>
+		 <link rel="stylesheet" type="text/css" href="cv.css">
+		
+	</head>
+
+	<body>
+	
+	 <canvas id="myCanvas"></canvas> 
+
+	<script>
+	
+		var canvas = document.getElementById('myCanvas');
+		var context = canvas.getContext('2d');
+	  	context.canvas.width  = 1920;
+		context.canvas.height = 961;
+		
+		var circleObj = new Image ();		
+		circleObj.src = 'file:///C:/Users/Sander/Desktop/circleframe.png';
+
+		var imageObj = new Image();
+		imageObj.src = 'file:///C:/Users/Sander/Desktop/CVfoto2.png';
+		
+		var button1 = new Image ();
+		button1.src = 'file:///C:/Users/Sander/Desktop/button1.png';
+		
+		var button2 = new Image ();
+		button2.src = 'file:///C:/Users/Sander/Desktop/button2.png';
+		
+		var button3 = new Image ();
+		button3.src = 'file:///C:/Users/Sander/Desktop/button3.png';
+		
+		var button4 = new Image ();
+		button4.src = 'file:///C:/Users/Sander/Desktop/button4.png';
+		
+		var tekstbutton1 = new Image ();
+		tekstbutton1.src = 'file:///C:/Users/Sander/Desktop/tekstbutton1.png';
+		
+		var tekstbutton2 = new Image ();
+		tekstbutton2.src = 'file:///C:/Users/Sander/Desktop/tekstbutton2.png';
+		
+		var tekstbutton3 = new Image ();
+		tekstbutton3.src = 'file:///C:/Users/Sander/Desktop/tekstbutton3.png';
+		
+		var tekstbutton4 = new Image ();
+		tekstbutton4.src = 'file:///C:/Users/Sander/Desktop/tekstbutton4.png';
+		
+		var tekstbutton5 = new Image ();
+		tekstbutton5.src = 'file:///C:/Users/Sander/Desktop/tekstbutton5.png';
+		
+		
+		function getMousePos(canvas, evt) {
+			var rect = canvas.getBoundingClientRect();
+			var centerX = 1911/2;
+			var centerY = 180+275;
+			return {
+				x: evt.clientX - rect.left - centerX,
+				y: - ( evt.clientY - rect.top - centerY )
+			};
+		}
+		
+		canvas.addEventListener('mousemove', function(evt) {
+			
+			context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+			context.drawImage (circleObj, 1911/2-275, 180, 550, 550);
+		
+			var mousePos = getMousePos(canvas, evt);
+			var angle = Math.atan(mousePos.y/mousePos.x) * 180 / Math.PI;
+			
+			var radius = Math.sqrt((mousePos.x-0)*(mousePos.x-0) + (mousePos.y-0)*(mousePos.y-0));	
+
+			if (mousePos.x < 0){
+			  angle = 180 + angle;
+			}else if (mousePos.y < 0){
+			  angle = 360 + angle;
+			}
+			
+			var buttonhover = 0;
+			
+			if(radius <= 150){
+				context.globalAlpha = 1;
+				context.drawImage(imageObj, 1911/2-80, 310, 160, 280);
+				buttonhover = 5;	
+			}else{
+				context.globalAlpha = 0.4;
+				context.drawImage(imageObj, 1911/2-80, 310, 160, 280);
+				context.globalAlpha = 1;
+			}
+			
+			//BUTTONS VANUIT CENTER PLAATSEN
+			context.globalAlpha = 0.4;
+			context.drawImage(button1, 576, 5, 550, 550);
+			context.drawImage(button2, 791, 6, 550, 550);
+			context.drawImage(button3, 506, 288, 550, 550);
+			context.drawImage(button4, 856, 287, 550, 550);
+			context.globalAlpha = 1;
+			
+			
+			
+			if(radius <= 250 && radius >= 150){
+				if (angle >= 105 && angle <= 135){
+					context.drawImage(button1, 576, 5, 550, 550);
+					buttonhover = 1;
+				}else if(angle >= 45 && angle <= 75){
+					context.drawImage(button2, 791, 6, 550, 550);
+					buttonhover = 2;
+				}else if(angle >= 195 && angle <= 225){
+					context.drawImage(button3, 506, 288, 550, 550);
+					buttonhover = 3;
+				}else if (angle >= 315 && angle <= 345){
+					context.drawImage(button4, 856, 287, 550, 550);
+					buttonhover = 4;
+				}else{
+					buttonhover = 0;
+				}
+			}
+			
+			context.fillStyle="#FFFFFF";
+			context.globalAlpha = 0.2;
+			context.beginPath();
+			context.moveTo(0, 0);
+			context.lineTo(1911/2-10, 0);
+			context.stroke();
+			
+			
+			context.lineTo(1911/2-330, 455);
+			context.stroke();
+			
+			context.lineTo(1911/2-10, 927);
+			context.stroke();
+		
+			context.lineTo(0,927);
+			context.stroke();
+			
+			context.fill();
+			
+			context.beginPath();
+			context.lineTo(1911, 0);
+			context.stroke();
+			
+			context.lineTo(1911/2+30,0 );
+			context.stroke();
+			
+			context.lineTo(1911,900 );
+			context.stroke();
+			
+			
+			context.fill();
+			
+			context.globalAlpha = 1;
+			
+			switch (buttonhover){
+				case 0:
+					//
+					break;
+				case 1:
+					context.drawImage(tekstbutton1, 10, 50, 700, 900);
+					break;
+				case 2:
+					context.drawImage(tekstbutton2, 1300, 50, 550, 550);
+					break;
+				case 3:
+					context.drawImage(tekstbutton3, 10, 10, 700, 1000);
+					break;
+				case 4:
+					context.drawImage(tekstbutton4, 1400, 30, 500, 500);
+					break;
+				case 5:
+					context.drawImage(tekstbutton5, 1200, 500, 550, 550);
+					break;
+			} 
+			
+		});
+		
+		
+	
+	
+	
+	
+	</script> 
+		
+	</body>
+
+
+
+
+
+
+</html>
